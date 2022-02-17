@@ -12,18 +12,19 @@ public class StateMachine {
 	private State currentState;
 	private State initialState;
 	private String event;
+	private Map<String, Integer> integers = new HashMap<>();
 
 	public Machine build() {
-		return new Machine(states.values(), initialState);
+		return new Machine(states.values(), initialState, integers);
 	}
 
 	public StateMachine state(String stateName) {
-//		if (states.containsKey(stateName)) {
-//			currentState = states.get(stateName);
-//		} else {
+		if (states.containsKey(stateName)) {
+			currentState = states.get(stateName);
+		} else {
 			currentState = new State(stateName);
 			states.put(stateName, currentState);
-//		}
+		}
 
 		return this;
 	}
@@ -43,30 +44,36 @@ public class StateMachine {
 			State newState = new State(targetState);
 			states.put(targetState, newState);
 		}
-		
+
 		Transition t = new Transition(states.get(targetState), event);
 		currentState.getTransitions().add(t);
 		return this;
 	}
 
 	public StateMachine integer(String string) {
-		// TODO Auto-generated method stub
-		return null;
+		integers.put(string, 0);
+		return this;
 	}
 
 	public StateMachine set(String string, int i) {
-		// TODO Auto-generated method stub
-		return null;
+		integers.put(string, i);
+		currentState.getTransitionByEvent(event).setOperation = true;
+		currentState.getTransitionByEvent(event).operationVariableName = string;
+		return this;
 	}
 
 	public StateMachine increment(String string) {
-		// TODO Auto-generated method stub
-		return null;
+		integers.put(string, integers.get(string) + 1);
+		currentState.getTransitionByEvent(event).incrementOperation = true;
+		currentState.getTransitionByEvent(event).operationVariableName = string;
+		return this;
 	}
 
 	public StateMachine decrement(String string) {
-		// TODO Auto-generated method stub
-		return null;
+		integers.put(string, integers.get(string) - 1);
+		currentState.getTransitionByEvent(event).decrementOperation = true;
+		currentState.getTransitionByEvent(event).operationVariableName = string;
+		return this;
 	}
 
 	public StateMachine ifEquals(String string, int i) {

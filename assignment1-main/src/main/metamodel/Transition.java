@@ -3,6 +3,10 @@ package main.metamodel;
 public class Transition {
     private State targetState;
     private String event;
+    public boolean setOperation = false;
+    public boolean incrementOperation = false;
+    public boolean decrementOperation = false;
+    public String operationVariableName = null;
     
     public Transition(State targetState, String event) {
     	this.targetState = targetState;
@@ -18,23 +22,19 @@ public class Transition {
 	}
 
 	public boolean hasSetOperation() {
-		// TODO Auto-generated method stub
-		return false;
+		return setOperation;
 	}
 
 	public boolean hasIncrementOperation() {
-		// TODO Auto-generated method stub
-		return false;
+		return incrementOperation;
 	}
 
 	public boolean hasDecrementOperation() {
-		// TODO Auto-generated method stub
-		return false;
+		return decrementOperation;
 	}
 
 	public Object getOperationVariableName() {
-		// TODO Auto-generated method stub
-		return null;
+		return operationVariableName;
 	}
 
 	public boolean isConditional() {
