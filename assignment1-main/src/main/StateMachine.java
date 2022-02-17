@@ -38,12 +38,13 @@ public class StateMachine {
 		return this;
 	}
 
-	public StateMachine to(String stateName) {
-		if (!states.containsKey(stateName)) {
-			states.put(stateName, currentState);
+	public StateMachine to(String targetState) {
+		if (!states.containsKey(targetState)) {
+			State newState = new State(targetState);
+			states.put(targetState, newState);
 		}
 		
-		Transition t = new Transition(states.get(stateName), event);
+		Transition t = new Transition(states.get(targetState), event);
 		currentState.getTransitions().add(t);
 		return this;
 	}

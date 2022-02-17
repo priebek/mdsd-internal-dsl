@@ -1,11 +1,11 @@
 package main.metamodel;
 
 public class Transition {
-    private State currentState;
+    private State targetState;
     private String event;
     
-    public Transition(State state, String event) {
-    	this.currentState = state;
+    public Transition(State targetState, String event) {
+    	this.targetState = targetState;
     	this.event = event;
     }
     
@@ -14,7 +14,7 @@ public class Transition {
 	}
 
 	public State getTarget() {
-		return currentState;
+		return targetState;
 	}
 
 	public boolean hasSetOperation() {
