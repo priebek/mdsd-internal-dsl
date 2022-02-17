@@ -5,10 +5,10 @@ import java.util.List;
 
 public class State {
 	private String name;
-	private List<Transition> trans = new ArrayList<>();
+	private List<Transition> transitions = new ArrayList<>();
 	
-	public State(String string) {
-		this.name = string;
+	public State(String stateName) {
+		this.name = stateName;
 	}
 	
 	public Object getName() {
@@ -16,12 +16,15 @@ public class State {
 	}
 
 	public List<Transition> getTransitions() {
-		return trans;
+		return transitions;
 	}
-
-	public Transition getTransitionByEvent(String string) {
-		// TODO Auto-generated method stub
+	
+	public Transition getTransitionByEvent(String eventName) {
+		for (Transition transition : transitions) {
+			if (transition.getEvent().equals(eventName))
+				return transition;
+		}
 		return null;
 	}
-
+	
 }

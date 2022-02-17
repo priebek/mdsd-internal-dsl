@@ -5,35 +5,47 @@ import java.util.Map;
 
 import main.metamodel.Machine;
 import main.metamodel.State;
+import main.metamodel.Transition;
 
 public class StateMachine {
 	private Map<String, State> states = new HashMap<>();
-	private State current;
-	private State initial;
+	private State currentState;
+	private State initialState;
+	private String event;
 
 	public Machine build() {
-		return new Machine(states.values(), initial);
+		return new Machine(states.values(), initialState);
 	}
 
-	public StateMachine state(String string) {
-		current = new State(string);
-		states.put(string, current);
+	public StateMachine state(String stateName) {
+//		if (states.containsKey(stateName)) {
+//			currentState = states.get(stateName);
+//		} else {
+			currentState = new State(stateName);
+			states.put(stateName, currentState);
+//		}
+
 		return this;
 	}
 
 	public StateMachine initial() {
-		initial = current;
+		initialState = currentState;
 		return this;
 	}
 
-	public StateMachine when(String string) {
-		// TODO Auto-generated method stub
-		return null;
+	public StateMachine when(String eventName) {
+		event = eventName;
+		return this;
 	}
 
-	public StateMachine to(String string) {
-		// TODO Auto-generated method stub
-		return null;
+	public StateMachine to(String stateName) {
+		if (!states.containsKey(stateName)) {
+			states.put(stateName, currentState);
+		}
+		
+		Transition t = new Transition(states.get(stateName), event);
+		currentState.getTransitions().add(t);
+		return this;
 	}
 
 	public StateMachine integer(String string) {

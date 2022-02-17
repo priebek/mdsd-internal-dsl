@@ -31,7 +31,8 @@ public class Machine {
 	}
 
 	public int numberOfIntegers() {
-		return states.size();
+		// TODO Auto-generated method stub
+		return 0;
 	}
 
 	public boolean hasInteger(String string) {
