@@ -1,26 +1,29 @@
 package main;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashMap;
+import java.util.Map;
 
 import main.metamodel.Machine;
 import main.metamodel.State;
 
 public class StateMachine {
+	private Map<String, State> states = new HashMap<>();
+	private State current;
+	private State initial;
 
 	public Machine build() {
-		// TODO Auto-generated method stub
-		return null;
+		return new Machine(states.values(), initial);
 	}
 
 	public StateMachine state(String string) {
-		// TODO Auto-generated method stub
-		return null;
+		current = new State(string);
+		states.put(string, current);
+		return this;
 	}
 
 	public StateMachine initial() {
-		// TODO Auto-generated method stub
-		return null;
+		initial = current;
+		return this;
 	}
 
 	public StateMachine when(String string) {
