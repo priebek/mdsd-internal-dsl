@@ -1,2 +1,5 @@
-# mdsd-internal-dsl
-Model Driven Software Development Assignment 1: Internal DSL
+# Model Driven Software Development Assignment 1: Internal DSL
+
+Assignment Internal DSL for Model Driven Software Development
+
+Description: Complete the state machine source code available at https://gitlab.sdu.dk/mdsd/assignments/assignment1/ using the MDSD github repository for inspiration (mini_state_machine, year3). Unit tests are available, if you succeed in making all unit tests pass while following the standard internal DSL implementation patterns, you have solved the exercise perfectly. Hand in your response as a single pdf that includes (1) a one-paragraph summary of how you solved the exercise (2) your status in terms of which unit tests pass, (3) a link to an online version of your source code, and (4) the source code of your project (we need both the link to the online version and the source code in the pdf).
