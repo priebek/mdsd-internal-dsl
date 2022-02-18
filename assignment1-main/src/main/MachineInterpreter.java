@@ -41,12 +41,12 @@ public class MachineInterpreter {
 					}
 					break;
 				case IFLESSTHAN:
-					if (currentTransition.conditionVariableValue < operationVariableValue) {
+					if (operationVariableValue < currentTransition.conditionVariableValue) {
 						currentState = currentTransition.getTarget();
 					}
 					break;
 				case IFGREATERTHAN:
-					if (currentTransition.conditionVariableValue > operationVariableValue) {
+					if (operationVariableValue > currentTransition.conditionVariableValue) {
 						currentState = currentTransition.getTarget();
 					}
 					break;
