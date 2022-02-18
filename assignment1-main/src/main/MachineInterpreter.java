@@ -50,6 +50,8 @@ public class MachineInterpreter {
 					currentState = currentTransition.getTarget();
 					break;
 				}
+			} else {
+				currentState = currentTransition.getTarget();
 			}
 		}
 
