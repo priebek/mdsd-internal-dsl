@@ -60,43 +60,47 @@ public class StateMachine {
 
 	public StateMachine set(String operationVariableName, int i) {
 		integers.put(operationVariableName, i);
-		AddConditionType(Arrays.asList(ConditionType.SET));
+		AddConditionTypeAndName(Arrays.asList(ConditionType.SET), null);
 		currentState.getTransitionByEvent(event).operationVariableName = operationVariableName;
 		return this;
 	}
 
 	public StateMachine increment(String string) {
 		integers.put(string, integers.get(string) + 1);
-		AddConditionType(Arrays.asList(ConditionType.INCREMENT));
-		currentState.getTransitionByEvent(event).operationVariableName = string;
+		AddConditionTypeAndName(Arrays.asList(ConditionType.INCREMENT), string);
 		return this;
 	}
 
 	public StateMachine decrement(String string) {
 		integers.put(string, integers.get(string) - 1);
-		AddConditionType(Arrays.asList(ConditionType.DECREMENT));
-		currentState.getTransitionByEvent(event).operationVariableName = string;
+		AddConditionTypeAndName(Arrays.asList(ConditionType.DECREMENT), string);
 		return this;
 	}
 
 	public StateMachine ifEquals(String string, int i) {
-		currentState.getTransitionByEvent(event).condition = i;
-		AddConditionType(Arrays.asList(ConditionType.IFEQUALS));
+		currentState.getTransitionByEvent(event).conditionVariableValue = i;
+		AddConditionTypeAndName(Arrays.asList(ConditionType.IFEQUALS), string);
 		return this;
 	}
 
 	public StateMachine ifGreaterThan(String string, int i) {
-		AddConditionType(Arrays.asList(ConditionType.IFGREATERTHAN));
+		currentState.getTransitionByEvent(event).conditionVariableValue = i;
+		AddConditionTypeAndName(Arrays.asList(ConditionType.IFGREATERTHAN), string);
 		return this;
 	}
 
 	public StateMachine ifLessThan(String string, int i) {
-		AddConditionType(Arrays.asList(ConditionType.IFLESSTHAN));
+		currentState.getTransitionByEvent(event).conditionVariableValue = i;
+		AddConditionTypeAndName(Arrays.asList(ConditionType.IFLESSTHAN), string);
 		return this;
 	}
 
-	private void AddConditionType(Collection<ConditionType> conditionType) {
+	private void AddConditionTypeAndName(Collection<ConditionType> conditionType, String conditionVariableName) {
 		currentState.getTransitionByEvent(event).conditionTypes.addAll(conditionType);
+		
+		if (conditionVariableName != null) {
+			currentState.getTransitionByEvent(event).conditionVariableName = conditionVariableName;
+		}
 	}
 
 }

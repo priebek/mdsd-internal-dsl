@@ -11,14 +11,11 @@ public class Transition {
 	
     private State targetState;
     private String event;
-//    public boolean setOperation = false;
-//    public boolean incrementOperation = false;
-//    public boolean decrementOperation = false;
     public String operationVariableName = null;
-//    public boolean isConditional = false;
     
     public List<ConditionType> conditionTypes = new ArrayList<>();
-    public Integer condition = null;
+    public String conditionVariableName = null;
+    public Integer conditionVariableValue = null;
     
     public Transition(State targetState, String event) {
     	this.targetState = targetState;
@@ -54,12 +51,11 @@ public class Transition {
 	}
 
 	public Object getConditionVariableName() {
-		return operationVariableName;
+		return conditionVariableName;
 	}
 
 	public Integer getConditionComparedValue() {
-		// TODO Auto-generated method stub
-		return null;
+		return conditionVariableValue;
 	}
 
 	public boolean isConditionEqual() {
