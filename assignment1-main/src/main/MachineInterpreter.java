@@ -31,6 +31,10 @@ public class MachineInterpreter {
 				case INCREMENT:
 					machine.integers.put(operationVariableName, operationVariableValue + 1);
 					break;
+				case SET:
+					machine.integers.put(operationVariableName, currentTransition.operationVariableValue);
+					currentState = currentTransition.getTarget();
+					break;
 				case IFEQUALS:
 					if (currentTransition.conditionVariableValue.equals(operationVariableValue)) {
 						currentState = currentTransition.getTarget();

@@ -59,7 +59,7 @@ public class StateMachine {
 	}
 
 	public StateMachine set(String operationVariableName, int i) {
-		integers.put(operationVariableName, i);
+		currentState.getTransitionByEvent(event).operationVariableValue = i;
 		SetOperationInfo(operationVariableName);
 		AddConditionType(Arrays.asList(ConditionType.SET));
 		return this;
