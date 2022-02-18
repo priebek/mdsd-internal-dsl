@@ -66,14 +66,12 @@ public class StateMachine {
 	}
 
 	public StateMachine increment(String string) {
-		integers.put(string, integers.get(string) + 1);
 		SetOperationInfo(string);
 		AddConditionType(Arrays.asList(ConditionType.INCREMENT));
 		return this;
 	}
 
 	public StateMachine decrement(String string) {
-		integers.put(string, integers.get(string) - 1);
 		SetOperationInfo(string);
 		AddConditionType(Arrays.asList(ConditionType.DECREMENT));
 		return this;

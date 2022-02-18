@@ -9,7 +9,7 @@ import java.util.Map;
 public class Machine {
 	private List<State> states = new ArrayList<State>();
 	private State initialState;
-	private Map<String, Integer> integers = new HashMap<>();
+	public Map<String, Integer> integers = new HashMap<>();
 
 	public Machine(Collection<State> states, State initialState, Map<String, Integer> integers) {
 		super();
