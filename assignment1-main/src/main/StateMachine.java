@@ -1,11 +1,14 @@
 package main;
 
+import java.util.Arrays;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 
 import main.metamodel.Machine;
 import main.metamodel.State;
 import main.metamodel.Transition;
+import main.metamodel.Transition.ConditionType;
 
 public class StateMachine {
 	private Map<String, State> states = new HashMap<>();
@@ -55,40 +58,45 @@ public class StateMachine {
 		return this;
 	}
 
-	public StateMachine set(String string, int i) {
-		integers.put(string, i);
-		currentState.getTransitionByEvent(event).setOperation = true;
-		currentState.getTransitionByEvent(event).operationVariableName = string;
+	public StateMachine set(String operationVariableName, int i) {
+		integers.put(operationVariableName, i);
+		AddConditionType(Arrays.asList(ConditionType.SET));
+		currentState.getTransitionByEvent(event).operationVariableName = operationVariableName;
 		return this;
 	}
 
 	public StateMachine increment(String string) {
 		integers.put(string, integers.get(string) + 1);
-		currentState.getTransitionByEvent(event).incrementOperation = true;
+		AddConditionType(Arrays.asList(ConditionType.INCREMENT));
 		currentState.getTransitionByEvent(event).operationVariableName = string;
 		return this;
 	}
 
 	public StateMachine decrement(String string) {
 		integers.put(string, integers.get(string) - 1);
-		currentState.getTransitionByEvent(event).decrementOperation = true;
+		AddConditionType(Arrays.asList(ConditionType.DECREMENT));
 		currentState.getTransitionByEvent(event).operationVariableName = string;
 		return this;
 	}
 
 	public StateMachine ifEquals(String string, int i) {
-		// TODO Auto-generated method stub
-		return null;
+		currentState.getTransitionByEvent(event).condition = i;
+		AddConditionType(Arrays.asList(ConditionType.IFEQUALS));
+		return this;
 	}
 
 	public StateMachine ifGreaterThan(String string, int i) {
-		// TODO Auto-generated method stub
-		return null;
+		AddConditionType(Arrays.asList(ConditionType.IFGREATERTHAN));
+		return this;
 	}
 
 	public StateMachine ifLessThan(String string, int i) {
-		// TODO Auto-generated method stub
-		return null;
+		AddConditionType(Arrays.asList(ConditionType.IFLESSTHAN));
+		return this;
+	}
+
+	private void AddConditionType(Collection<ConditionType> conditionType) {
+		currentState.getTransitionByEvent(event).conditionTypes.addAll(conditionType);
 	}
 
 }

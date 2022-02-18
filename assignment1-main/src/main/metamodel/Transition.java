@@ -1,12 +1,24 @@
 package main.metamodel;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Transition {
+	
+	public enum ConditionType {
+		SET, INCREMENT, DECREMENT, IFEQUALS, IFGREATERTHAN, IFLESSTHAN
+	}
+	
     private State targetState;
     private String event;
-    public boolean setOperation = false;
-    public boolean incrementOperation = false;
-    public boolean decrementOperation = false;
+//    public boolean setOperation = false;
+//    public boolean incrementOperation = false;
+//    public boolean decrementOperation = false;
     public String operationVariableName = null;
+//    public boolean isConditional = false;
+    
+    public List<ConditionType> conditionTypes = new ArrayList<>();
+    public Integer condition = null;
     
     public Transition(State targetState, String event) {
     	this.targetState = targetState;
@@ -22,15 +34,15 @@ public class Transition {
 	}
 
 	public boolean hasSetOperation() {
-		return setOperation;
+		return (conditionTypes.contains(ConditionType.SET));
 	}
 
 	public boolean hasIncrementOperation() {
-		return incrementOperation;
+		return (conditionTypes.contains(ConditionType.INCREMENT));
 	}
 
 	public boolean hasDecrementOperation() {
-		return decrementOperation;
+		return (conditionTypes.contains(ConditionType.DECREMENT));
 	}
 
 	public Object getOperationVariableName() {
@@ -38,13 +50,11 @@ public class Transition {
 	}
 
 	public boolean isConditional() {
-		// TODO Auto-generated method stub
-		return false;
+		return (conditionTypes.size() > 0);
 	}
 
 	public Object getConditionVariableName() {
-		// TODO Auto-generated method stub
-		return null;
+		return operationVariableName;
 	}
 
 	public Integer getConditionComparedValue() {
