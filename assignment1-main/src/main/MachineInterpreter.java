@@ -19,7 +19,7 @@ public class MachineInterpreter {
 	}
 
 	public void processEvent(String string) {
-		if (currentState.getTransitionByEvent(string) != null) {
+		if (currentState.getAllTransitionByEvent(string) != null) {
 			Transition currentTransition = currentState.getTransitionByEvent(string);
 			String operationVariableName = currentTransition.operationVariableName;
 			Integer operationVariableValue = machine.integers.get(operationVariableName);

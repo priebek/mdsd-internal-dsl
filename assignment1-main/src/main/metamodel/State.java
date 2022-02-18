@@ -20,11 +20,10 @@ public class State {
 	}
 	
 	public Transition getTransitionByEvent(String eventName) {
-		for (Transition transition : transitions) {
-			if (transition.getEvent().equals(eventName))
-				return transition;
-		}
-		return null;
+		return transitions.stream().filter(x -> x.getEvent().equals(eventName)).findFirst().orElseGet(() -> null);
 	}
 	
+	public List<Transition> getAllTransitionByEvent(String eventName) {
+		return transitions.stream().filter(x -> x.getEvent().equals(eventName)).toList();
+	}
 }
