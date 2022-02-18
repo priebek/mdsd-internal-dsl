@@ -12,6 +12,7 @@ public class Transition {
     private State targetState;
     private String event;
     public String operationVariableName = null;
+    public Integer operationVariableValue = null;
     
     public List<ConditionType> conditionTypes = new ArrayList<>();
     public String conditionVariableName = null;
