@@ -9,6 +9,7 @@ import main.metamodel.Machine;
 import main.metamodel.State;
 import main.metamodel.Transition;
 import main.metamodel.Transition.ConditionType;
+import main.metamodel.Transition.OperationType;
 
 public class StateMachine {
 	private Map<String, State> states = new HashMap<>();
@@ -61,20 +62,24 @@ public class StateMachine {
 	public StateMachine set(String operationVariableName, int i) {
 		currentState.getTransitionByEvent(event).operationVariableValue = i;
 		SetOperationInfo(operationVariableName);
-		AddConditionType(Arrays.asList(ConditionType.SET));
+		AddOperationType(Arrays.asList(OperationType.SET));
 		return this;
 	}
 
 	public StateMachine increment(String string) {
 		SetOperationInfo(string);
-		AddConditionType(Arrays.asList(ConditionType.INCREMENT));
+		AddOperationType(Arrays.asList(OperationType.INCREMENT));
 		return this;
 	}
 
 	public StateMachine decrement(String string) {
 		SetOperationInfo(string);
-		AddConditionType(Arrays.asList(ConditionType.DECREMENT));
+		AddOperationType(Arrays.asList(OperationType.DECREMENT));
 		return this;
+	}
+	
+	private void AddOperationType(Collection<OperationType> operationType) {
+		currentState.getTransitionByEvent(event).operationTypes.addAll(operationType);
 	}
 	
 	private void SetOperationInfo(String name) {

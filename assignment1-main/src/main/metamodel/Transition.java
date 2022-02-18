@@ -4,25 +4,31 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Transition {
-	
-	public enum ConditionType {
-		SET, INCREMENT, DECREMENT, IFEQUALS, IFGREATERTHAN, IFLESSTHAN
+
+	public enum OperationType {
+		SET, INCREMENT, DECREMENT
 	}
-	
-    private State targetState;
-    private String event;
-    public String operationVariableName = null;
-    public Integer operationVariableValue = null;
-    
-    public List<ConditionType> conditionTypes = new ArrayList<>();
-    public String conditionVariableName = null;
-    public Integer conditionVariableValue = null;
-    
-    public Transition(State targetState, String event) {
-    	this.targetState = targetState;
-    	this.event = event;
-    }
-    
+
+	public enum ConditionType {
+		IFEQUALS, IFGREATERTHAN, IFLESSTHAN
+	}
+
+	private State targetState;
+	private String event;
+	public String operationVariableName = null;
+	public Integer operationVariableValue = null;
+
+	public List<OperationType> operationTypes = new ArrayList<>();
+
+	public List<ConditionType> conditionTypes = new ArrayList<>();
+	public String conditionVariableName = null;
+	public Integer conditionVariableValue = null;
+
+	public Transition(State targetState, String event) {
+		this.targetState = targetState;
+		this.event = event;
+	}
+
 	public Object getEvent() {
 		return event;
 	}
@@ -32,15 +38,15 @@ public class Transition {
 	}
 
 	public boolean hasSetOperation() {
-		return (conditionTypes.contains(ConditionType.SET));
+		return (operationTypes.contains(OperationType.SET));
 	}
 
 	public boolean hasIncrementOperation() {
-		return (conditionTypes.contains(ConditionType.INCREMENT));
+		return (operationTypes.contains(OperationType.INCREMENT));
 	}
 
 	public boolean hasDecrementOperation() {
-		return (conditionTypes.contains(ConditionType.DECREMENT));
+		return (operationTypes.contains(OperationType.DECREMENT));
 	}
 
 	public Object getOperationVariableName() {

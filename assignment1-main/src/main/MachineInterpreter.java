@@ -24,45 +24,61 @@ public class MachineInterpreter {
 			String operationVariableName = currentTransition.operationVariableName;
 			Integer operationVariableValue = machine.integers.get(operationVariableName);
 
-			if (currentTransition.conditionTypes.size() > 0) {
-				for (ConditionType condition : currentTransition.conditionTypes) {
-					switch (condition) {
-					case DECREMENT:
-						machine.integers.put(operationVariableName, operationVariableValue - 1);
-						break;
-					case INCREMENT:
-						machine.integers.put(operationVariableName, operationVariableValue + 1);
-						break;
-					case SET:
-						machine.integers.put(operationVariableName, currentTransition.operationVariableValue);
-						currentState = currentTransition.getTarget();
-						break;
-					case IFEQUALS:
-						if (currentTransition.conditionVariableValue.equals(operationVariableValue)) {
-							currentState = currentTransition.getTarget();
-						}
-						break;
-					case IFLESSTHAN:
-						if (operationVariableValue < currentTransition.conditionVariableValue) {
-							currentState = currentTransition.getTarget();
-						}
-						break;
-					case IFGREATERTHAN:
-						if (operationVariableValue > currentTransition.conditionVariableValue) {
-							currentState = currentTransition.getTarget();
-						}
-						break;
-					default:
-						currentState = currentTransition.getTarget();
-						break;
-					}
-				}
-			} else {
+			if (currentTransition.conditionTypes.size() == 0) {
+				RunOperation(currentTransition, operationVariableName, operationVariableValue);
 				currentState = currentTransition.getTarget();
+				return;
+			}
+			
+			for (ConditionType condition : currentTransition.conditionTypes) {
+				switch (condition) {
+				case IFEQUALS:
+					if (currentTransition.conditionVariableValue.equals(operationVariableValue)) {
+						RunOperation(currentTransition, operationVariableName, operationVariableValue);
+						currentState = currentTransition.getTarget();
+					}
+					break;
+				case IFLESSTHAN:
+					if (operationVariableValue < currentTransition.conditionVariableValue) {
+						RunOperation(currentTransition, operationVariableName, operationVariableValue);
+						currentState = currentTransition.getTarget();
+					}
+					break;
+				case IFGREATERTHAN:
+					if (operationVariableValue > currentTransition.conditionVariableValue) {
+						RunOperation(currentTransition, operationVariableName, operationVariableValue);
+						currentState = currentTransition.getTarget();
+					}
+					break;
+				default:
+					currentState = currentTransition.getTarget();
+					break;
+				}
 			}
 		}
 	}
-	
+
+	private void RunOperation(Transition currentTransition, String operationVariableName,
+			Integer operationVariableValue) {
+		if (currentTransition.operationTypes.size() > 0) {
+			switch (currentTransition.operationTypes.get(0)) {
+			case DECREMENT:
+				machine.integers.put(operationVariableName, operationVariableValue - 1);
+				break;
+			case INCREMENT:
+				machine.integers.put(operationVariableName, operationVariableValue + 1);
+				break;
+			case SET:
+				machine.integers.put(operationVariableName, currentTransition.operationVariableValue);
+				currentState = currentTransition.getTarget();
+				break;
+			default:
+				break;
+			}
+
+		}
+	}
+
 	public int getInteger(String string) {
 		return machine.integers.get(string);
 	}
