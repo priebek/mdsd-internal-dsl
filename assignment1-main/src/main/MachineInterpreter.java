@@ -17,7 +17,8 @@ public class MachineInterpreter {
 	}
 
 	public void processEvent(String string) {
-		// TODO Auto-generated method stub
+		if (currentState.getTransitionByEvent(string) != null)
+			currentState = currentState.getTransitionByEvent(string).getTarget();
 	}
 
 	public int getInteger(String string) {
