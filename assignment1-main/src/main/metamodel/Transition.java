@@ -12,7 +12,6 @@ public class Transition {
     private State targetState;
     private String event;
     public String operationVariableName = null;
-    public Integer operationVariableValue = null;
     
     public List<ConditionType> conditionTypes = new ArrayList<>();
     public String conditionVariableName = null;
@@ -60,15 +59,15 @@ public class Transition {
 	}
 
 	public boolean isConditionEqual() {
-		return (operationVariableValue.equals(conditionVariableValue));
+		return (conditionTypes.contains(ConditionType.IFEQUALS));
 	}
 
 	public boolean isConditionGreaterThan() {
-		return (operationVariableValue > conditionVariableValue);
+		return (conditionTypes.contains(ConditionType.IFGREATERTHAN));
 	}
 
 	public boolean isConditionLessThan() {
-		return (operationVariableValue < conditionVariableValue);
+		return (conditionTypes.contains(ConditionType.IFLESSTHAN));
 	}
 
 	public boolean hasOperation() {

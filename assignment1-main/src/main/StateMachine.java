@@ -81,7 +81,6 @@ public class StateMachine {
 	
 	private void SetOperationInfo(String name) {
 		currentState.getTransitionByEvent(event).operationVariableName = name;
-		currentState.getTransitionByEvent(event).operationVariableValue = integers.get(name);
 	}
 
 	public StateMachine ifEquals(String string, int i) {
