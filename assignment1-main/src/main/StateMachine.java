@@ -85,19 +85,19 @@ public class StateMachine {
 	}
 
 	public StateMachine ifEquals(String string, int i) {
-		currentState.getTransitionByEvent(event).conditionVariableValue = i;
+		AddConditionInfo(string, i);
 		AddConditionType(Arrays.asList(ConditionType.IFEQUALS));
 		return this;
 	}
 
 	public StateMachine ifGreaterThan(String string, int i) {
-		currentState.getTransitionByEvent(event).conditionVariableValue = i;
+		AddConditionInfo(string, i);
 		AddConditionType(Arrays.asList(ConditionType.IFGREATERTHAN));
 		return this;
 	}
 
 	public StateMachine ifLessThan(String string, int i) {
-		currentState.getTransitionByEvent(event).conditionVariableValue = i;
+		AddConditionInfo(string, i);
 		AddConditionType(Arrays.asList(ConditionType.IFLESSTHAN));
 		return this;
 	}
@@ -106,7 +106,9 @@ public class StateMachine {
 		currentState.getTransitionByEvent(event).conditionTypes.addAll(conditionType);
 	}
 
-	private void AddConditionName(String conditionVariableName) {
-		currentState.getTransitionByEvent(event).conditionVariableName = conditionVariableName;
+	private void AddConditionInfo(String name, Integer value) {
+		currentState.getTransitionByEvent(event).conditionVariableName = name;
+		currentState.getTransitionByEvent(event).conditionVariableValue = value;
+		SetOperationInfo(name);
 	}
 }

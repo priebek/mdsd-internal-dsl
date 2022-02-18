@@ -60,23 +60,19 @@ public class Transition {
 	}
 
 	public boolean isConditionEqual() {
-		// TODO Auto-generated method stub
-		return false;
+		return (operationVariableValue.equals(conditionVariableValue));
 	}
 
 	public boolean isConditionGreaterThan() {
-		// TODO Auto-generated method stub
-		return false;
+		return (operationVariableValue > conditionVariableValue);
 	}
 
 	public boolean isConditionLessThan() {
-		// TODO Auto-generated method stub
-		return false;
+		return (operationVariableValue < conditionVariableValue);
 	}
 
 	public boolean hasOperation() {
-		// TODO Auto-generated method stub
-		return false;
+		return (operationVariableName != null);
 	}
 
 }
