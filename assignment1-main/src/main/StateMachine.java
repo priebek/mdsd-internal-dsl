@@ -1,3 +1,4 @@
+// StateMachine.java
 package main;
 
 import java.util.Arrays;
@@ -77,11 +78,11 @@ public class StateMachine {
 		AddOperationType(Arrays.asList(OperationType.DECREMENT));
 		return this;
 	}
-	
+
 	private void AddOperationType(Collection<OperationType> operationType) {
 		currentState.getLastTransitionByEvent(event).operationTypes.addAll(operationType);
 	}
-	
+
 	private void SetOperationInfo(String name) {
 		currentState.getLastTransitionByEvent(event).operationVariableName = name;
 	}
