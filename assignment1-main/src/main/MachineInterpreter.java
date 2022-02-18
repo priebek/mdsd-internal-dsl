@@ -1,5 +1,7 @@
 package main;
 
+import java.util.List;
+
 import main.metamodel.Machine;
 import main.metamodel.State;
 import main.metamodel.Transition;
@@ -19,14 +21,16 @@ public class MachineInterpreter {
 	}
 
 	public void processEvent(String string) {
-		if (currentState.getAllTransitionByEvent(string) != null) {
-			Transition currentTransition = currentState.getTransitionByEvent(string);
+
+		List<Transition> transitions = currentState.getAllTransitionByEvent(string);
+
+		for (Transition currentTransition : transitions) {
+
 			String operationVariableName = currentTransition.operationVariableName;
 			Integer operationVariableValue = machine.integers.get(operationVariableName);
 
 			if (currentTransition.conditionTypes.size() == 0) {
 				RunOperation(currentTransition, operationVariableName, operationVariableValue);
-				currentState = currentTransition.getTarget();
 				return;
 			}
 
@@ -35,23 +39,25 @@ public class MachineInterpreter {
 				case IFEQUALS:
 					if (currentTransition.conditionVariableValue.equals(operationVariableValue)) {
 						RunOperation(currentTransition, operationVariableName, operationVariableValue);
+						return;
 					}
 					break;
 				case IFLESSTHAN:
 					if (operationVariableValue < currentTransition.conditionVariableValue) {
 						RunOperation(currentTransition, operationVariableName, operationVariableValue);
+						return;
 					}
 					break;
 				case IFGREATERTHAN:
 					if (operationVariableValue > currentTransition.conditionVariableValue) {
 						RunOperation(currentTransition, operationVariableName, operationVariableValue);
+						return;
 					}
 					break;
 				default:
 					break;
 				}
 			}
-
 		}
 	}
 

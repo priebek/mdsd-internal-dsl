@@ -60,7 +60,7 @@ public class StateMachine {
 	}
 
 	public StateMachine set(String operationVariableName, int i) {
-		currentState.getTransitionByEvent(event).operationVariableValue = i;
+		currentState.getLastTransitionByEvent(event).operationVariableValue = i;
 		SetOperationInfo(operationVariableName);
 		AddOperationType(Arrays.asList(OperationType.SET));
 		return this;
@@ -79,11 +79,11 @@ public class StateMachine {
 	}
 	
 	private void AddOperationType(Collection<OperationType> operationType) {
-		currentState.getTransitionByEvent(event).operationTypes.addAll(operationType);
+		currentState.getLastTransitionByEvent(event).operationTypes.addAll(operationType);
 	}
 	
 	private void SetOperationInfo(String name) {
-		currentState.getTransitionByEvent(event).operationVariableName = name;
+		currentState.getLastTransitionByEvent(event).operationVariableName = name;
 	}
 
 	public StateMachine ifEquals(String string, int i) {
@@ -105,12 +105,12 @@ public class StateMachine {
 	}
 
 	private void AddConditionType(Collection<ConditionType> conditionType) {
-		currentState.getTransitionByEvent(event).conditionTypes.addAll(conditionType);
+		currentState.getLastTransitionByEvent(event).conditionTypes.addAll(conditionType);
 	}
 
 	private void AddConditionInfo(String name, Integer value) {
-		currentState.getTransitionByEvent(event).conditionVariableName = name;
-		currentState.getTransitionByEvent(event).conditionVariableValue = value;
+		currentState.getLastTransitionByEvent(event).conditionVariableName = name;
+		currentState.getLastTransitionByEvent(event).conditionVariableValue = value;
 		SetOperationInfo(name);
 	}
 }
