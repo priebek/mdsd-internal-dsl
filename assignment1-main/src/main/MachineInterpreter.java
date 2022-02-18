@@ -21,18 +21,35 @@ public class MachineInterpreter {
 		if (currentState.getTransitionByEvent(string) != null) {
 			Transition currentTransition = currentState.getTransitionByEvent(string);
 			String operationVariableName = currentTransition.operationVariableName;
+			Integer operationVariableValue = machine.integers.get(operationVariableName);
 
-			currentState = currentTransition.getTarget();
-
-			switch (currentTransition.conditionTypes.get(0)) {
-			case DECREMENT:
-				machine.integers.put(operationVariableName, machine.integers.get(operationVariableName) - 1);
-				break;
-			case INCREMENT:
-				machine.integers.put(operationVariableName, machine.integers.get(operationVariableName) + 1);
-				break;
-			default:
-				// code block
+			if (currentTransition.conditionTypes.size() > 0) {
+				switch (currentTransition.conditionTypes.get(0)) {
+				case DECREMENT:
+					machine.integers.put(operationVariableName, operationVariableValue - 1);
+					break;
+				case INCREMENT:
+					machine.integers.put(operationVariableName, operationVariableValue + 1);
+					break;
+				case IFEQUALS:
+					if (currentTransition.conditionVariableValue.equals(operationVariableValue)) {
+						currentState = currentTransition.getTarget();
+					}
+					break;
+				case IFLESSTHAN:
+					if (currentTransition.conditionVariableValue < operationVariableValue) {
+						currentState = currentTransition.getTarget();
+					}
+					break;
+				case IFGREATERTHAN:
+					if (currentTransition.conditionVariableValue > operationVariableValue) {
+						currentState = currentTransition.getTarget();
+					}
+					break;
+				default:
+					currentState = currentTransition.getTarget();
+					break;
+				}
 			}
 		}
 
